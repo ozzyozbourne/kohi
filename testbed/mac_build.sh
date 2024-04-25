@@ -2,7 +2,7 @@
 # Build script for testbed on mac 
 
 # Enable echoing of commandset echo on
-set x 
+set -x 
 
 # Get a list of all the .c files.
 cfilenames=$(find . -type f -name "*.c") 
