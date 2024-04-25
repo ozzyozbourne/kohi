@@ -1,6 +1,6 @@
-#include <"test.h">
+#include <test.h>
 
-int main(){
+int main(void){
     print_int(42);
     return 0;
 }
