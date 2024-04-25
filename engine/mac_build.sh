@@ -2,7 +2,7 @@
 # Build script for engine on mac 
 
 # Enable echoing of commandset echo on
-set -x 
+set echo on
 
 # make bin in the parent if not present 
 mkdir -p ../bin 
