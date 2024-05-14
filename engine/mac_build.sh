@@ -22,3 +22,6 @@ defines="-D_DEBUG -DKEXPORT"
 echo "Building $assembly..."
 
 clang $cfilenames $compilerFlags -o ../bin/lib$assembly.dylib $defines $includeFlags $linkerFlags
+
+echo "Build Successfully"
+
