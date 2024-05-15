@@ -47,34 +47,21 @@ typedef struct internal_state {
 
 - (BOOL)windowShouldClose:(id)sender {
     state->quit_flagged = TRUE;
-
-    event_context data = {};
-
     return YES;
 }
 
 - (void)windowDidResize:(NSNotification *)notification {
-    event_context context;
     const NSRect contentRect = [state->view frame];
     const NSRect framebufferRect = [state->view convertRectToBacking:contentRect];
-    context.data.u16[0] = (u16)framebufferRect.size.width;
-    context.data.u16[1] = (u16)framebufferRect.size.height;
 }
 
 - (void)windowDidMiniaturize:(NSNotification *)notification {
-    event_context context;
-    context.data.u16[0] = 0;
-    context.data.u16[1] = 0;
-
     [state->window miniaturize:nil];
 }
 
 - (void)windowDidDeminiaturize:(NSNotification *)notification {
-    event_context context;
     const NSRect contentRect = [state->view frame];
     const NSRect framebufferRect = [state->view convertRectToBacking:contentRect];
-    context.data.u16[0] = (u16)framebufferRect.size.width;
-    context.data.u16[1] = (u16)framebufferRect.size.height;
 
     [state->window deminiaturize:nil];
 }
