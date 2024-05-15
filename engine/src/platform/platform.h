@@ -6,7 +6,7 @@ typedef struct platform_state {
     void* internal_state;
 } platform_state;
 
-KAPI  b8 platform_startup(
+KAPI b8 platform_startup(
     platform_state* plat_state,
     const char* application_name,
     i32 x,

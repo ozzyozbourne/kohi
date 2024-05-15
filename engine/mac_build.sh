@@ -8,8 +8,8 @@ set echo on
 mkdir -p ../bin 
 
 # Get a list of all the .c files.
-cfilenames=$(find . -type f -name "*.c") 
-
+cfilenames=$(find . -type f \( -name "*.c" -o -name "*.m" \))
+echo "$cfilenames"
 assembly="engine"
 compilerFlags="-g -fdeclspec -fPIC -dynamiclib -install_name @rpath/lib$assembly.dylib"
 # will add these later -Wall -Werror
