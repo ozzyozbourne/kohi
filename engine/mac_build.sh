@@ -16,7 +16,7 @@ compilerFlags="-g -fdeclspec -fPIC -dynamiclib -install_name @rpath/lib$assembly
 includeFlags="-Isrc -I$VULKAN_SDK/include"
 
 
-linkerFlags="-lvulkan -framework AppKit -framework QuartzCore"
+linkerFlags="-lvulkan -lobjc -framework AppKit -framework QuartzCore"
 defines="-D_DEBUG -DKEXPORT"
 
 echo "Building $assembly..."
