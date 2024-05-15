@@ -3,6 +3,7 @@
 #if defined(KPLATFORM_APPLE)
 
 #include "core/logger.h"
+
 #include <mach/mach_time.h>
 #include <crt_externs.h>
 
@@ -13,7 +14,7 @@
 @class ApplicationDelegate;
 @class WindowDelegate;
 @class ContentView;
-
+ 
 typedef struct internal_state {
     ApplicationDelegate* app_delegate;
     WindowDelegate* wnd_delegate;
@@ -35,12 +36,12 @@ typedef struct internal_state {
 
 - (instancetype)initWithState:(internal_state*)init_state {
     self = [super init];
-
+    
     if (self != nil) {
         state = init_state;
         state->quit_flagged = FALSE;
     }
-
+    
     return self;
 }
 
@@ -48,7 +49,6 @@ typedef struct internal_state {
     state->quit_flagged = TRUE;
 
     event_context data = {};
-    event_fire(EVENT_CODE_APPLICATION_QUIT, 0, data);
 
     return YES;
 }
@@ -59,14 +59,12 @@ typedef struct internal_state {
     const NSRect framebufferRect = [state->view convertRectToBacking:contentRect];
     context.data.u16[0] = (u16)framebufferRect.size.width;
     context.data.u16[1] = (u16)framebufferRect.size.height;
-    event_fire(EVENT_CODE_RESIZED, 0, context);
 }
 
 - (void)windowDidMiniaturize:(NSNotification *)notification {
     event_context context;
     context.data.u16[0] = 0;
     context.data.u16[1] = 0;
-    event_fire(EVENT_CODE_RESIZED, 0, context);
 
     [state->window miniaturize:nil];
 }
@@ -77,7 +75,6 @@ typedef struct internal_state {
     const NSRect framebufferRect = [state->view convertRectToBacking:contentRect];
     context.data.u16[0] = (u16)framebufferRect.size.width;
     context.data.u16[1] = (u16)framebufferRect.size.height;
-    event_fire(EVENT_CODE_RESIZED, 0, context);
 
     [state->window deminiaturize:nil];
 }
@@ -114,6 +111,10 @@ typedef struct internal_state {
 }
 
 - (BOOL)wantsUpdateLayer {
+    return YES;
+}
+
+- (BOOL)acceptsFirstMouse:(NSEvent *)event {
     return YES;
 }
 
@@ -262,7 +263,7 @@ void platform_shutdown(platform_state *plat_state) {
         [state->wnd_delegate release];
         state->wnd_delegate = nil;
     }
-
+    
     if (state->view) {
         [state->view release];
         state->view = nil;
@@ -279,7 +280,7 @@ void platform_shutdown(platform_state *plat_state) {
 b8 platform_pump_messages(platform_state *plat_state) {
     // Simply cold-cast to the known type.
     internal_state* state = (internal_state*)plat_state->internal_state;
-
+    
     @autoreleasepool {
 
     NSEvent* event;
@@ -293,7 +294,7 @@ b8 platform_pump_messages(platform_state *plat_state) {
 
         if (!event)
             break;
-
+        
         [NSApp sendEvent:event];
     }
 
@@ -352,4 +353,4 @@ void platform_sleep(u64 ms) {
 #endif
 }
 
-}
+#endif // SLN_PLATFORM_MACOS
