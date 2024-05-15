@@ -20,7 +20,6 @@ typedef struct internal_state {
     NSWindow* window;
     ContentView* view;
     CAMetalLayer* layer;
-    VkSurfaceKHR surface;
     b8 quit_flagged;
 } internal_state;
 
@@ -116,75 +115,6 @@ typedef struct internal_state {
 
 - (BOOL)wantsUpdateLayer {
     return YES;
-}
-
-- (BOOL)acceptsFirstMouse:(NSEvent *)event {
-    return YES;
-}
-
-- (void)mouseDown:(NSEvent *)event {
-    input_process_button(BUTTON_LEFT, TRUE);
-}
-
-- (void)mouseDragged:(NSEvent *)event {
-    // Equivalent to moving the mouse for now
-    [self mouseMoved:event];
-}
-
-- (void)mouseUp:(NSEvent *)event {
-    input_process_button(BUTTON_LEFT, FALSE);
-}
-
-- (void)mouseMoved:(NSEvent *)event {
-    const NSPoint pos = [event locationInWindow];
-
-    input_process_mouse_move((i16)pos.x, (i16)pos.y);
-}
-
-- (void)rightMouseDown:(NSEvent *)event {
-    input_process_button(BUTTON_RIGHT, TRUE);
-}
-
-- (void)rightMouseDragged:(NSEvent *)event  {
-    // Equivalent to moving the mouse for now
-    [self mouseMoved:event];
-}
-
-- (void)rightMouseUp:(NSEvent *)event {
-    input_process_button(BUTTON_RIGHT, FALSE);
-}
-
-- (void)otherMouseDown:(NSEvent *)event {
-    // Interpreted as middle click
-    input_process_button(BUTTON_MIDDLE, TRUE);
-}
-
-- (void)otherMouseDragged:(NSEvent *)event {
-    // Equivalent to moving the mouse for now
-    [self mouseMoved:event];
-}
-
-- (void)otherMouseUp:(NSEvent *)event {
-    // Interpreted as middle click
-    input_process_button(BUTTON_MIDDLE, FALSE);
-}
-
-- (void)keyDown:(NSEvent *)event {
-    keys key = translate_keycode((u32)[event keyCode]);
-
-    input_process_key(key, TRUE);
-
-    [self interpretKeyEvents:@[event]];
-}
-
-- (void)keyUp:(NSEvent *)event {
-    keys key = translate_keycode((u32)[event keyCode]);
-
-    input_process_key(key, FALSE);
-}
-
-- (void)scrollWheel:(NSEvent *)event {
-    input_process_mouse_wheel((i8)[event scrollingDeltaY]);
 }
 
 - (void)insertText:(id)string replacementRange:(NSRange)replacementRange {}
@@ -420,10 +350,6 @@ void platform_sleep(u64 ms) {
     }
     usleep((ms % 1000) * 1000);
 #endif
-}
-
-void platform_get_required_extension_names(const char ***names_darray) {
-    darray_push(*names_darray, &"VK_EXT_metal_surface");
 }
 
 }
