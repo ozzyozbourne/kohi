@@ -4,6 +4,14 @@ Developing Kohi Vulkan game engine on mac from the very begining.
 
 ## Important Links
 
+## Please support Kohi is the best hands on resource on vulkan game engine.
+
+- [Patreon](https://patreon.com/travisvroman)
+- [Ko-fi](https://ko-fi.com/travisvroman)
+- [YouTube membership](https://www.youtube.com/TravisVroman/join)
+- [Subscribe on Twitch](https://www.twitch.tv/products/travisvroman)
+- [Sponsor via GitHub](https://github.com/sponsors/travisvroman)
+
 ### Socials
 
 [![Twitch](/images/media_icon_twitch_name.png?raw=true)](https://twitch.tv/travisvroman)
