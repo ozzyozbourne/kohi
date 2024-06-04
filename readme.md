@@ -1,5 +1,3 @@
-# Project Title
-
 Developing Kohi Vulkan game engine on mac from the very begining.
 
 ## Please support Kohi it is the best hands on resource on vulkan game engine.
