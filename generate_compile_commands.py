@@ -25,7 +25,7 @@ def generate_compile_commands(project_root, vulkan_sdk_include):
 
     for file in engine_files:
         compile_commands.append({
-            "directory": project_root,
+            "directory": os.path.join(project_root, "engine"),
             "command": f"{engine_command_base} {file}",
             "file": file
         })
